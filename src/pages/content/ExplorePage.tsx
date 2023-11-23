@@ -180,8 +180,20 @@ const professors: Professor[] = [
   },
 ];
 
+function extractTags(professors: Professor[]): string[] {
+  const set = new Set<string>();
+  for (let p of professors) {
+    for (let t of p.tags) {
+      set.add(t);
+    }
+  }
+  return Array.from(set);
+}
+
 export default function ExplorePage() {
   const [filterGoals, setFilterGoals] = useState<number[]>([]);
+
+  const tags = extractTags(professors);
 
   return (
     <>
@@ -189,7 +201,28 @@ export default function ExplorePage() {
 
       <div className="space-y-6">
         <Card>
-          <div>
+          <div className="flex gap-4">
+            <SelectField
+              label="SDG Goals"
+              value={"*"}
+              placeholder="Goals"
+              options={[
+                { label: "Select goal", value: "*" },
+                ...goals.map((g, i) => ({
+                  label: i + 1 + ". " + g,
+                  value: i + "",
+                })),
+              ]}
+              onChange={(e) => {
+                const val = +e.target.value;
+                if (filterGoals.includes(val)) {
+                  setFilterGoals(filterGoals.filter((g) => g !== val));
+                } else {
+                  setFilterGoals([...filterGoals, val]);
+                }
+              }}
+            />
+
             <SelectField
               label="SDG Goals"
               value={"*"}
