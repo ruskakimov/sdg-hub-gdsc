@@ -2,6 +2,9 @@ import PageHeader from "../../common/components/PageHeader";
 import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
 import { firebaseAuth } from "../../api/firebase-setup";
 import React, { useState, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
+import { faGlobe,faGraduationCap } from '@fortawesome/free-solid-svg-icons';
 
 import "./Student.css"
 import {
@@ -30,6 +33,11 @@ export default function Student() {
     input1: '',
     input2: '',
     input3: '',
+    Portfolio: '',
+    LinkedIn: '',
+    Github: '',
+    GScholar: '',
+    IEEE: '',
     name: user?.displayName,
   });
 
@@ -48,6 +56,11 @@ export default function Student() {
       input1:JSON.parse(localStorage.getItem(email)||"")[0],
       input2:JSON.parse(localStorage.getItem(email)||"")[1],
       input3:JSON.parse(localStorage.getItem(email)||"")[2],
+      Portfolio: JSON.parse(localStorage.getItem(email)||"")[3],
+    LinkedIn: JSON.parse(localStorage.getItem(email)||"")[4],
+    Github: JSON.parse(localStorage.getItem(email)||"")[5],
+    GScholar: JSON.parse(localStorage.getItem(email)||"")[6],
+    IEEE: JSON.parse(localStorage.getItem(email)||"")[7],
     }))
   
   }, [user])
@@ -62,7 +75,7 @@ export default function Student() {
  const handleSave = () => {
     const storedValues = localStorage.getItem(inputValues.uniqueField||"");
 
-    const newArray = [inputValues.input1, inputValues.input2, inputValues.input3];
+   const newArray = [inputValues.input1, inputValues.input2, inputValues.input3, inputValues.Portfolio,inputValues.LinkedIn,inputValues.Github,inputValues.GScholar,inputValues.IEEE];
 
     if (storedValues) {
       localStorage.setItem(inputValues.uniqueField||"", JSON.stringify(newArray));
@@ -84,14 +97,15 @@ export default function Student() {
           <MDBCol lg="4">
             <MDBCard className="mb-4">
               <MDBCardBody className="text-center">
+                <div className="d-flex justify-content-center">
                 <MDBCardImage
                   src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
                   alt="avatar"
                   className="rounded-circle"
                   style={{ width: '150px' }}
                   fluid />
-                <p className="text-muted mb-1">Full Stack Developer</p>
-                <p className="text-muted mb-4">Bay Area, San Francisco, CA</p>
+                  </div>
+                <p className="text-muted mt-3 mb-3">Full Stack Developer</p>
                 <div className="d-flex justify-content-center mb-2">
                     <div style={{display:'flex', justifyContent:"center", alignItems:"center"}}>
                   <MDBBtn>Follow</MDBBtn>
@@ -104,25 +118,41 @@ export default function Student() {
             <MDBCard className="mb-4 mb-lg-0">
               <MDBCardBody className="p-0">
                 <MDBListGroup flush className="rounded-3">
+
                   <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                    <MDBIcon fas icon="globe fa-lg text-warning" />
-                    <MDBCardText><i className="fab fa-instagram"></i>https://mdbootstrap.com</MDBCardText>
+                    <FontAwesomeIcon icon={faGlobe} style={{ color: '#333333' }}  className="icons"/> 
+                    <MDBCardText>
+                      <input placeholder="Portfolio" value={inputValues.Portfolio}
+                       onChange={(e) => handleChange(e, 'Portfolio')} 
+                       type="text" /></MDBCardText>
                   </MDBListGroupItem>
+
                   <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                    <MDBIcon fab icon="github fa-lg" style={{ color: '#333333' }} />
-                    <MDBCardText>mdbootstrap</MDBCardText>
+                    <FontAwesomeIcon icon={faLinkedin} className="icons"/> 
+                    <MDBCardText><input placeholder="LinkedIn" value={inputValues.LinkedIn}
+                       onChange={(e) => handleChange(e, 'LinkedIn')} 
+                       type="text" /></MDBCardText>
                   </MDBListGroupItem>
+
                   <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                    <MDBIcon fab icon="twitter fa-lg" style={{ color: '#55acee' }} />
-                    <MDBCardText>@mdbootstrap</MDBCardText>
+                     <FontAwesomeIcon icon={faGithub} className="icons"/> 
+                    <MDBCardText><input placeholder="Github" value={inputValues.Github}
+                       onChange={(e) => handleChange(e, 'Github')} 
+                       type="text" /></MDBCardText>
                   </MDBListGroupItem>
+
                   <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                    <MDBIcon fab icon="instagram fa-lg" style={{ color: '#ac2bac' }} />
-                    <MDBCardText>mdbootstrap</MDBCardText>
+                     <FontAwesomeIcon icon={faGraduationCap} className="icons"/> 
+                    <MDBCardText><input placeholder="Google Scholar" value={inputValues.GScholar}
+                       onChange={(e) => handleChange(e, 'GScholar')} 
+                       type="text" /></MDBCardText>
                   </MDBListGroupItem>
+                  
                   <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                    <MDBIcon fab icon="facebook fa-lg" style={{ color: '#3b5998' }} />
-                    <MDBCardText>mdbootstrap</MDBCardText>
+                     <FontAwesomeIcon icon={faGraduationCap} className="icons"/> 
+                    <MDBCardText><input placeholder="IEEE" value={inputValues.IEEE}
+                       onChange={(e) => handleChange(e, 'IEEE')} 
+                       type="text" /></MDBCardText>
                   </MDBListGroupItem>
                 </MDBListGroup>
               </MDBCardBody>

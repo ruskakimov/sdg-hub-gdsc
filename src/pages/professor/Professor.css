@@ -1,0 +1,13 @@
+.icons {
+  height: 1.5rem;
+}
+
+.btn-up-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-up {
+  margin-right: 10px;
+}
