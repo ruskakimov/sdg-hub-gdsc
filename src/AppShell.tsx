@@ -44,16 +44,7 @@ export default function AppShell() {
               <div className="flex h-16 justify-between">
                 <div className="flex">
                   <div className="flex flex-shrink-0 items-center ml-2">
-                    <img
-                      className="block h-5 w-auto lg:hidden"
-                      src={logo}
-                      alt=""
-                    />
-                    <img
-                      className="hidden h-5 w-auto lg:block"
-                      src={logo}
-                      alt=""
-                    />
+                    <img className="h-7 w-auto" src={logo} alt="" />
                   </div>
                   <div className="hidden sm:-my-px sm:ml-8 sm:flex sm:space-x-8">
                     {navigation.map((item) => (
