@@ -19,12 +19,12 @@ const LoginPage: React.FC<{ isSignup?: boolean }> = ({ isSignup = false }) => {
 
       <div className="outerDiv">
 
-        <p className="heading">SGD_HUB</p>
+        <p className="heading">Sgd_Hub</p>
 
         <div className="innerDiv">
 
           {/* Teachers */}
-          <div className="bg-stone-800 py-8 px-4 shadow sm:rounded-lg sm:px-10 teachers">
+          <div className="bg-stone-800 py-8 px-4 shadow sm:px-10 teachers">
             <h2 className="mb-6 text-center text-2xl font-medium tracking-tighter text-gray-200">
               {"Professors"}
             </h2>
@@ -47,7 +47,7 @@ const LoginPage: React.FC<{ isSignup?: boolean }> = ({ isSignup = false }) => {
           </div>
 
           {/* Student */}    
-          <div className="bg-stone-800 py-8 px-4 shadow sm:rounded-lg sm:px-10 student">
+          <div className="bg-stone-800 py-8 px-4 shadow sm:px-10 student">
             <h2 className="mb-6 text-center text-2xl font-medium tracking-tighter text-gray-200">
               {"Students"}
             </h2>
