@@ -6,6 +6,7 @@ import { XCircleIcon } from "@heroicons/react/24/outline";
 import { ref, getDatabase } from "firebase/database";
 import { useList } from "react-firebase-hooks/database";
 import { firebaseApp } from "../../api/firebase-setup";
+import useConfirmationDialog from "../../common/hooks/useConfirmationDialog";
 
 interface Professor {
   name: string;
@@ -85,11 +86,13 @@ export default function ExplorePage() {
 
   const professors: Professor[] = snapshots?.map((s) => s.val()) || [];
   const tags = extractTags(professors);
+  
+  const [openConfirmationDialog, confirmationDialog] = useConfirmationDialog();
 
   return (
     <>
       <PageHeader title="Explore" />
-
+      {confirmationDialog}
       <div className="space-y-6">
         <Card>
           <div className="flex gap-4">
@@ -253,6 +256,15 @@ export default function ExplorePage() {
                       <a
                         href="#"
                         className="text-indigo-600 hover:text-indigo-900"
+                        onClick={()=>openConfirmationDialog({
+                          title: "Discard changes",
+                          body: (
+                            <p className="text-sm text-gray-500">
+                              Are you sure you want to discard the changes you made?
+                            </p>
+                          ),
+                          action: "Discard",
+                        })}
                       >
                         View
                       </a>
@@ -261,7 +273,7 @@ export default function ExplorePage() {
                 ))}
             </tbody>
           </table>
-        </Card>
+        </Card> 
       </div>
     </>
   );
