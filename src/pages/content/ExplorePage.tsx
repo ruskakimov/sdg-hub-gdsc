@@ -261,66 +261,75 @@ export default function ExplorePage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 bg-white">
-              {professors.map((professor) => (
-                <tr key={professor.email}>
-                  <td className="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
-                    <div className="flex items-center">
-                      <div className="h-11 w-11 flex-shrink-0">
-                        <img
-                          className="h-11 w-11 rounded-full"
-                          src={professor.imageUrl}
-                          alt=""
-                        />
-                      </div>
-                      <div className="ml-4">
-                        <div className="font-medium text-gray-900">
-                          {professor.name}
+              {professors
+                .filter((p) => {
+                  if (filterGoals.length === 0) return true;
+                  return filterGoals.some((g) => p.goals.includes(g + 1));
+                })
+                .map((professor) => (
+                  <tr key={professor.email}>
+                    <td className="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
+                      <div className="flex items-center">
+                        <div className="h-11 w-11 flex-shrink-0">
+                          <img
+                            className="h-11 w-11 rounded-full"
+                            src={professor.imageUrl}
+                            alt=""
+                          />
                         </div>
-                        <div className="mt-1 text-gray-500">
-                          {professor.email}
+                        <div className="ml-4">
+                          <div className="font-medium text-gray-900">
+                            {professor.name}
+                          </div>
+                          <div className="mt-1 text-gray-500">
+                            {professor.email}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </td>
-                  <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
-                    <div className="text-gray-900">{professor.university}</div>
-                    <div className="mt-1 text-gray-500">{professor.title}</div>
-                  </td>
+                    </td>
+                    <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
+                      <div className="text-gray-900">
+                        {professor.university}
+                      </div>
+                      <div className="mt-1 text-gray-500">
+                        {professor.title}
+                      </div>
+                    </td>
 
-                  <td className="px-3 py-5 text-sm text-gray-500">
-                    <div className="flex flex-wrap gap-2">
-                      {professor.goals.map((goalNumber) => (
-                        <span
-                          className={`inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset ${goalColors[
-                            goalNumber - 1
-                          ].join(" ")}`}
-                        >
-                          {goals[goalNumber - 1]}
-                        </span>
-                      ))}
-                    </div>
-                  </td>
+                    <td className="px-3 py-5 text-sm text-gray-500">
+                      <div className="flex flex-wrap gap-2">
+                        {professor.goals.map((goalNumber) => (
+                          <span
+                            className={`inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset ${goalColors[
+                              goalNumber - 1
+                            ].join(" ")}`}
+                          >
+                            {goals[goalNumber - 1]}
+                          </span>
+                        ))}
+                      </div>
+                    </td>
 
-                  <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
-                    <div className="flex flex-wrap gap-2">
-                      {professor.tags.map((tag) => (
-                        <span className="inline-flex items-center rounded-md bg-stone-50 px-2 py-1 text-xs font-medium text-stone-700 ring-1 ring-inset ring-stone-600/20">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </td>
+                    <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
+                      <div className="flex flex-wrap gap-2">
+                        {professor.tags.map((tag) => (
+                          <span className="inline-flex items-center rounded-md bg-stone-50 px-2 py-1 text-xs font-medium text-stone-700 ring-1 ring-inset ring-stone-600/20">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </td>
 
-                  <td className="relative whitespace-nowrap py-5 px-3 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                    <a
-                      href="#"
-                      className="text-indigo-600 hover:text-indigo-900"
-                    >
-                      View
-                    </a>
-                  </td>
-                </tr>
-              ))}
+                    <td className="relative whitespace-nowrap py-5 px-3 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+                      <a
+                        href="#"
+                        className="text-indigo-600 hover:text-indigo-900"
+                      >
+                        View
+                      </a>
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </Card>
