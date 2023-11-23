@@ -78,6 +78,7 @@ export const data = {
 
 export default function Professor() {
 
+  const [tagArray, setTagArray] = useState(["Computer Science","Machine Learning", "AI", "Pattern Recognition","Neural Networks"])
   const [user] = useAuthState(firebaseAuth);  
 
    const [inputValues, setInputValues] = useState({
@@ -267,11 +268,20 @@ export default function Professor() {
             </MDBCard>
             <MDBRow>
               <MDBCol md="9">
-                <MDBCard className="mb-4 mb-md-0">
+              <MDBCard>
                   <MDBCardBody>
                   <Bar options={options} data={data} />
                   </MDBCardBody>
-                </MDBCard>
+              </MDBCard>
+              </MDBCol>
+              <MDBCol md="3">
+                <div style={{display:"flex", flexDirection:"column", alignItems:"space-between", height:"400px", gap:"5px", overflow:"hidden"}}>
+                {tagArray.map((ele)=><MDBCard>
+                  <MDBCardBody className="my-0 py-3 hover:border border-slate-400">
+                    {ele}
+                  </MDBCardBody>
+              </MDBCard>)}
+              </div>
               </MDBCol>
             </MDBRow>
           </MDBCol>
