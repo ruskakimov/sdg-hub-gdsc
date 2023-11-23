@@ -4,13 +4,13 @@ import { getFirestore } from "firebase/firestore";
 import { connectFunctionsEmulator, getFunctions } from "firebase/functions";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyB34gwQ0mKdYJEUg36TBjtaSbujmZSVjZw",
-  authDomain: "pdfegg.firebaseapp.com",
-  projectId: "pdfegg",
-  storageBucket: "pdfegg.appspot.com",
-  messagingSenderId: "474976026369",
-  appId: "1:474976026369:web:5ef3a3eeed72e408d5e500",
-  measurementId: "G-Y3QWR9FZKF",
+  apiKey: "AIzaSyASrBozlgR1eNcakmm60GHn0uh6JJMp2W4",
+  authDomain: "lakehead-hackathon.firebaseapp.com",
+  projectId: "lakehead-hackathon",
+  storageBucket: "lakehead-hackathon.appspot.com",
+  messagingSenderId: "1088997830134",
+  appId: "1:1088997830134:web:bedd9615cfd545c5e7abd7",
+  measurementId: "G-7PT9S8VRLD",
 };
 
 export const firebaseApp = initializeApp(firebaseConfig);
