@@ -6,6 +6,7 @@ import { XCircleIcon } from "@heroicons/react/24/outline";
 import { ref, getDatabase } from "firebase/database";
 import { useList } from "react-firebase-hooks/database";
 import { firebaseApp } from "../../api/firebase-setup";
+import TextField from "../../common/components/fields/TextField";
 
 interface Professor {
   name: string;
@@ -85,6 +86,7 @@ export default function ExplorePage() {
   const professors: Professor[] = snapshots?.map((s) => s.val()) || [];
   const tags = extractTags(professors);
 
+  const [searchText, setSearchText] = useState<string>("");
   const [filterGoals, setFilterGoals] = useState<number[]>([]);
   const [filterTags, setFilterTags] = useState<string[]>([]);
 
@@ -95,6 +97,12 @@ export default function ExplorePage() {
       <div className="space-y-6">
         <Card>
           <div className="flex gap-4">
+            <TextField
+              label="Search By Name"
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+            />
+
             <SelectField
               label="SDG Goals"
               value={"*"}
@@ -214,8 +222,22 @@ export default function ExplorePage() {
             <tbody className="divide-y divide-gray-200 bg-white">
               {professors
                 .filter((p) => {
-                  if (filterGoals.length === 0) return true;
-                  return filterGoals.some((g) => p.goals.includes(g + 1));
+                  const includedGoals =
+                    filterGoals.length > 0
+                      ? filterGoals
+                      : goals.map((g, i) => i);
+
+                  const includedTags =
+                    filterTags.length > 0 ? filterTags : tags;
+
+                  return (
+                    (searchText.trim() === "" ||
+                      p.name
+                        .toLowerCase()
+                        .includes(searchText.toLowerCase())) &&
+                    includedGoals.some((g) => p.goals.includes(g + 1)) &&
+                    includedTags.some((t) => p.tags.includes(t))
+                  );
                 })
                 .map((professor) => (
                   <tr key={professor.email}>
