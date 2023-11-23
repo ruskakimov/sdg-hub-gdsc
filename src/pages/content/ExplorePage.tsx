@@ -82,6 +82,101 @@ const professors: Professor[] = [
     ],
     goals: [4, 9],
   },
+  {
+    name: "Zheng Wang",
+    email: "zheng.wang@lakehead.ca",
+    imageUrl:
+      "https://scholar.google.ca/citations/images/avatar_scholar_128.png",
+    websiteUrl: "",
+    university: "Lakehead",
+    title: "Professor",
+    tags: [
+      "boson",
+      "particle-flow",
+      "dark matter",
+      "energy",
+      "neutrino physics",
+    ],
+    goals: [4, 7, 9],
+  },
+  {
+    name: "Michel Bédard",
+    email: "michel@lakehead.ca",
+    imageUrl:
+      "https://scholar.googleusercontent.com/citations?view_op=medium_photo&user=MD3G5iMAAAAJ&citpid=3",
+    websiteUrl: "",
+    university: "Lakehead",
+    title: "Professor",
+    tags: ["care-giving", "driving", "mental health", "aging"],
+    goals: [3, 10, 17],
+  },
+
+  {
+    name: "John Doe",
+    email: "john.doe@lakehead.ca",
+    imageUrl:
+      "https://scholar.google.ca/citations/images/avatar_scholar_128.png",
+    websiteUrl: "",
+    university: "Lakehead",
+    title: "Associate Professor",
+    tags: ["data science", "machine learning", "statistics"],
+    goals: [5, 8, 14],
+  },
+  {
+    name: "Jane Smith",
+    email: "jane.smith@lakehead.ca",
+    imageUrl:
+      "https://scholar.google.ca/citations/images/avatar_scholar_128.png",
+    websiteUrl: "",
+    university: "Lakehead",
+    title: "Professor",
+    tags: ["environmental science", "climate change", "sustainability"],
+    goals: [2, 11, 15],
+  },
+  {
+    name: "Bob Johnson",
+    email: "bob.johnson@lakehead.ca",
+    imageUrl:
+      "https://scholar.google.ca/citations/images/avatar_scholar_128.png",
+    websiteUrl: "",
+    university: "Lakehead",
+    title: "Assistant Professor",
+    tags: ["software engineering", "web development", "algorithms"],
+    goals: [1, 6, 13],
+  },
+  {
+    name: "Alice Williams",
+    email: "alice.williams@lakehead.ca",
+    imageUrl:
+      "https://scholar.google.ca/citations/images/avatar_scholar_128.png",
+    websiteUrl: "",
+    university: "Lakehead",
+    title: "Professor",
+    tags: ["biochemistry", "molecular biology", "genetics"],
+    goals: [12, 16],
+  },
+  {
+    name: "Ethan Carter",
+    email: "ethan.carter@lakehead.ca",
+    imageUrl:
+      "https://scholar.google.ca/citations/images/avatar_scholar_128.png",
+    websiteUrl: "",
+    university: "Lakehead",
+    title: "Associate Professor",
+    tags: ["robotics", "artificial intelligence", "control systems"],
+    goals: [7, 9, 15],
+  },
+  {
+    name: "Olivia Davis",
+    email: "olivia.davis@lakehead.ca",
+    imageUrl:
+      "https://scholar.google.ca/citations/images/avatar_scholar_128.png",
+    websiteUrl: "",
+    university: "Lakehead",
+    title: "Professor",
+    tags: ["public health", "epidemiology", "health policy"],
+    goals: [3, 10, 14],
+  },
 ];
 
 export default function ExplorePage() {
@@ -158,7 +253,7 @@ export default function ExplorePage() {
                       {professor.goals.map((goalNumber) => (
                         <span
                           className={`inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset ${goalColors[
-                            goalNumber
+                            goalNumber - 1
                           ].join(" ")}`}
                         >
                           {goals[goalNumber - 1]}
