@@ -10,7 +10,9 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import LoginPage from "./pages/login/LoginPage";
-import ContentPage from "./pages/content/ContentPage";
+import ContentPage from "./pages/content/ExplorePage";
+import Professor from "./pages/professor/Professor";
+import Student from "./pages/student/Student";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -23,11 +25,19 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        loader: () => redirect("edit"),
+        loader: () => redirect("explore"),
       },
       {
-        path: "edit",
+        path: "explore",
         element: <ContentPage />,
+      },
+      {
+        path: "professor",
+        element: <Professor />,
+      },
+      {
+        path: "student",
+        element: <Student />,
       },
     ],
   },

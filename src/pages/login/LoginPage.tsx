@@ -13,10 +13,6 @@ const LoginPage: React.FC<{ isSignup?: boolean }> = ({ isSignup = false }) => {
     useSignInWithGoogle(firebaseAuth);
 
   const navigate = useNavigate();
-  const location = useLocation();
-
-  const from = location.state?.from?.pathname || "/";
-  const onLoggedIn = () => navigate(from, { replace: true });
 
   return (
 
@@ -39,7 +35,12 @@ const LoginPage: React.FC<{ isSignup?: boolean }> = ({ isSignup = false }) => {
             <SocialButton
               icon={googleLogo}
               label="Continue with Google"
-              onClick={() => signInWithGoogle().then(onLoggedIn)}
+              onClick={() =>
+                signInWithGoogle().then(() => {
+                  localStorage.setItem("role", "professor");
+                  navigate("/professor", { replace: true });
+                })
+              }
             />
           </div>
 
@@ -56,7 +57,12 @@ const LoginPage: React.FC<{ isSignup?: boolean }> = ({ isSignup = false }) => {
             <SocialButton
               icon={googleLogo}
               label="Continue with Google"
-              onClick={() => signInWithGoogle().then(onLoggedIn)}
+              onClick={() =>
+                signInWithGoogle().then(() => {
+                  localStorage.setItem("role", "student");
+                  navigate("/student", { replace: true });
+                })
+              }
             />
           </div>
         </div>
@@ -64,7 +70,6 @@ const LoginPage: React.FC<{ isSignup?: boolean }> = ({ isSignup = false }) => {
   
   );
 };
-
 
 const SocialButton: React.FC<{
   icon: string;
