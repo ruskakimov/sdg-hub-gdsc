@@ -263,7 +263,7 @@ export default function ExplorePage() {
                   <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
                     <div className="flex flex-wrap gap-2">
                       {professor.tags.map((tag) => (
-                        <span className="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-600/20">
+                        <span className="inline-flex items-center rounded-md bg-stone-50 px-2 py-1 text-xs font-medium text-stone-700 ring-1 ring-inset ring-stone-600/20">
                           {tag}
                         </span>
                       ))}
