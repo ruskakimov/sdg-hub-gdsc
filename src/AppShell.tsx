@@ -22,10 +22,17 @@ export default function AppShell() {
   const [user] = useAuthState(firebaseAuth);
   const resumeContext = useResume(user ?? null);
 
-  const navigation: NavItem[] = [
-    { name: "Edit", to: "/edit", count: 0 },
-    { name: "Export", to: "/export", count: 0 },
-  ];
+  const role = localStorage.getItem("role");
+
+  const navigation: NavItem[] = [{ name: "Explore", to: "/explore", count: 0 }];
+
+  if (role === "student") {
+    navigation.push({ name: "Student", to: "/student", count: 0 });
+  }
+
+  if (role === "professor") {
+    navigation.push({ name: "Professor", to: "/professor", count: 0 });
+  }
 
   const [signOut] = useSignOut(firebaseAuth);
 

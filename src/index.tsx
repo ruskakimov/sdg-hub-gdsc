@@ -25,10 +25,10 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        loader: () => redirect("edit"),
+        loader: () => redirect("explore"),
       },
       {
-        path: "edit",
+        path: "explore",
         element: <ContentPage />,
       },
       {
