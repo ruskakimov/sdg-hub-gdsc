@@ -5,6 +5,7 @@ import googleLogo from "../../assets/images/google-logo.svg";
 import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 import { firebaseAuth } from "../../api/firebase-setup";
 import { useLocation, useNavigate } from "react-router-dom";
+import "./LoginPage.css"
 
 
 const LoginPage: React.FC<{ isSignup?: boolean }> = ({ isSignup = false }) => {
@@ -18,16 +19,17 @@ const LoginPage: React.FC<{ isSignup?: boolean }> = ({ isSignup = false }) => {
   const onLoggedIn = () => navigate(from, { replace: true });
 
   return (
-    <>
-      <div className="flex min-h-full flex-col justify-items-center py-12 sm:px-6 lg:px-8">
-        <img className="mx-auto h-8 w-auto" src={logo} alt="" />
 
-        <div className="flex mt-8 gap-4 sm:mx-auto sm:w-full sm:max-w-md">
+      <div className="outerDiv">
+
+        <p className="heading">SGD_HUB</p>
+
+        <div className="innerDiv">
 
           {/* Teachers */}
-          <div className="bg-white  py-8 px-4 shadow sm:rounded-lg sm:px-10">
+          <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 teachers">
             <h2 className="mb-6 text-center text-2xl font-medium tracking-tighter text-gray-700">
-              {isSignup ? "Create a new account" : "Sign in to your account"}
+              {"Professors"}
             </h2>
 
             {googleError && (
@@ -42,9 +44,9 @@ const LoginPage: React.FC<{ isSignup?: boolean }> = ({ isSignup = false }) => {
           </div>
 
           {/* Student */}    
-          <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+          <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 student">
             <h2 className="mb-6 text-center text-2xl font-medium tracking-tighter text-gray-700">
-              {isSignup ? "Create a new account" : "Sign in to your account"}
+              {"Students"}
             </h2>
 
             {googleError && (
@@ -59,7 +61,7 @@ const LoginPage: React.FC<{ isSignup?: boolean }> = ({ isSignup = false }) => {
           </div>
         </div>
       </div>
-    </>
+  
   );
 };
 

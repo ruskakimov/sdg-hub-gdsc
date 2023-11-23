@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&family=Poppins:wght@400;500;700&display=swap");
 :root {
   font-family: "Inter", sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -46,4 +46,9 @@
 
 .no-mouse-focus-ring:focus-visible {
   @apply ring-2 ring-offset-2;
+}
+
+body {
+  font-family: "Manrope", sans-serif;
+  font-family: "Poppins", sans-serif;
 }
