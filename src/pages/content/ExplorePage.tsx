@@ -18,14 +18,14 @@ interface Professor {
   tags: string[];
   goals: number[];
   // citations: number[]; // Last 10 years
-  // papers: {
-  //   name: string;
-  //   authors: string[];
-  //   publisher: string;
-  //   description: string;
-  //   citedBy: number;
-  //   date: string;
-  // }[];
+  papers: {
+    name: string;
+    authors: string[];
+    publisher: string;
+    description: string;
+    citedBy: number;
+    date: string;
+  }[];
 }
 
 const goals: string[] = [
@@ -85,6 +85,8 @@ export default function ExplorePage() {
   const [snapshots, loading, error] = useList(ref(database, "professors"));
 
   const professors: Professor[] = snapshots?.map((s) => s.val()) || [];
+  console.log(professors)
+  console.log(snapshots?.map((s) => s.val()))
   const tags = extractTags(professors);
   
   const [openConfirmationDialog, confirmationDialog] = useConfirmationDialog();
@@ -257,13 +259,15 @@ export default function ExplorePage() {
                         href="#"
                         className="text-indigo-600 hover:text-indigo-900"
                         onClick={()=>openConfirmationDialog({
-                          title: "Discard changes",
+                          title: "Papers",
                           body: (
-                            <p className="text-sm text-gray-500">
-                              Are you sure you want to discard the changes you made?
-                            </p>
+                            <div style={{display:"flex",flexDirection:"column", justifyContent:"space-between !important;", alignItems:"center !important;", gap:"7px", width:"100%"}}>
+                            {professor?.papers?.map((paper)=><Card>
+                              {paper.name}
+                            </Card>)}
+                            </div>
                           ),
-                          action: "Discard",
+                          action: "Close",
                         })}
                       >
                         View
