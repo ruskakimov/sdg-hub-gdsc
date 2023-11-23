@@ -11,6 +11,8 @@ import {
 } from "react-router-dom";
 import LoginPage from "./pages/login/LoginPage";
 import ContentPage from "./pages/content/ContentPage";
+import Professor from "./pages/professor/Professor";
+import Student from "./pages/student/Student";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -28,6 +30,14 @@ const router = createBrowserRouter([
       {
         path: "edit",
         element: <ContentPage />,
+      },
+      {
+        path: "professor",
+        element: <Professor />,
+      },
+      {
+        path: "student",
+        element: <Student />,
       },
     ],
   },
