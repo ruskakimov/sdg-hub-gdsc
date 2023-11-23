@@ -192,10 +192,15 @@ export default function ExplorePage() {
           <div>
             <SelectField
               label="SDG Goals"
-              options={goals.map((g, i) => ({
-                label: i + 1 + ". " + g,
-                value: i + "",
-              }))}
+              value={"*"}
+              placeholder="Goals"
+              options={[
+                { label: "Select goal", value: "*" },
+                ...goals.map((g, i) => ({
+                  label: i + 1 + ". " + g,
+                  value: i + "",
+                })),
+              ]}
               onChange={(e) => {
                 const val = +e.target.value;
                 if (filterGoals.includes(val)) {
