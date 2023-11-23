@@ -1,10 +1,10 @@
 import SecondaryButton from "../../common/components/SecondaryButton";
 
-import logo from "../../assets/images/logo.svg";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import googleLogo from "../../assets/images/google-logo.svg";
 import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 import { firebaseAuth } from "../../api/firebase-setup";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./LoginPage.css"
 
 
@@ -13,6 +13,8 @@ const LoginPage: React.FC<{ isSignup?: boolean }> = ({ isSignup = false }) => {
     useSignInWithGoogle(firebaseAuth);
 
   const navigate = useNavigate();
+
+  console.log(user)
 
   return (
 
@@ -23,8 +25,8 @@ const LoginPage: React.FC<{ isSignup?: boolean }> = ({ isSignup = false }) => {
         <div className="innerDiv">
 
           {/* Teachers */}
-          <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 teachers">
-            <h2 className="mb-6 text-center text-2xl font-medium tracking-tighter text-gray-700">
+          <div className="bg-stone-800 py-8 px-4 shadow sm:rounded-lg sm:px-10 teachers">
+            <h2 className="mb-6 text-center text-2xl font-medium tracking-tighter text-gray-200">
               {"Professors"}
             </h2>
 
@@ -36,7 +38,8 @@ const LoginPage: React.FC<{ isSignup?: boolean }> = ({ isSignup = false }) => {
               icon={googleLogo}
               label="Continue with Google"
               onClick={() =>
-                signInWithGoogle().then(() => {
+                signInWithGoogle().then((u) => {
+                  console.log(u)
                   localStorage.setItem("role", "professor");
                   navigate("/professor", { replace: true });
                 })
@@ -45,8 +48,8 @@ const LoginPage: React.FC<{ isSignup?: boolean }> = ({ isSignup = false }) => {
           </div>
 
           {/* Student */}    
-          <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 student">
-            <h2 className="mb-6 text-center text-2xl font-medium tracking-tighter text-gray-700">
+          <div className="bg-stone-800 py-8 px-4 shadow sm:rounded-lg sm:px-10 student">
+            <h2 className="mb-6 text-center text-2xl font-medium tracking-tighter text-gray-200">
               {"Students"}
             </h2>
 
@@ -59,6 +62,7 @@ const LoginPage: React.FC<{ isSignup?: boolean }> = ({ isSignup = false }) => {
               label="Continue with Google"
               onClick={() =>
                 signInWithGoogle().then(() => {
+                  
                   localStorage.setItem("role", "student");
                   navigate("/student", { replace: true });
                 })
@@ -77,7 +81,7 @@ const SocialButton: React.FC<{
   onClick: () => void;
 }> = ({ icon, label, onClick }) => {
   return (
-    <SecondaryButton className="w-full text-gray-500" onClick={onClick}>
+    <SecondaryButton className="w-full transition bg-stone-600 text-gray-200 border-none hover:bg-stone-700 " onClick={onClick}>
       <img className="h-5 w-5" src={icon} />
       {label !== undefined && <span className="ml-2">{label}</span>}
     </SecondaryButton>
