@@ -84,19 +84,19 @@ export default function ExplorePage() {
                   scope="col"
                   className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                 >
-                  Title
+                  Institution
                 </th>
                 <th
                   scope="col"
                   className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                 >
-                  Status
+                  Research Areas
                 </th>
                 <th
                   scope="col"
                   className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                 >
-                  Role
+                  SDG Goals
                 </th>
                 <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-0">
                   <span className="sr-only">Edit</span>
@@ -129,22 +129,30 @@ export default function ExplorePage() {
                     <div className="text-gray-900">{professor.university}</div>
                     <div className="mt-1 text-gray-500">{professor.title}</div>
                   </td>
-                  <td className="whitespace-wrap flex-wrap max-w-xs align-top flex gap-2 px-3 py-5 text-sm text-gray-500">
-                    {professor.tags.map((tag) => (
-                      <span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
-                        {tag}
-                      </span>
-                    ))}
-                  </td>
                   <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
-                    {professor.university}
+                    <div className="flex flex-wrap gap-2">
+                      {professor.tags.map((tag) => (
+                        <span className="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-600/20">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </td>
+                  <td className="px-3 py-5 text-sm text-gray-500">
+                    <div className="flex flex-wrap gap-2">
+                      {professor.goals.map((goalNumber) => (
+                        <span className="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-600/20">
+                          {goals[goalNumber - 1]}
+                        </span>
+                      ))}
+                    </div>
                   </td>
                   <td className="relative whitespace-nowrap py-5 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                     <a
                       href="#"
                       className="text-indigo-600 hover:text-indigo-900"
                     >
-                      Edit<span className="sr-only">, {professor.name}</span>
+                      Follow
                     </a>
                   </td>
                 </tr>
