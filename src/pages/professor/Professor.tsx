@@ -1,6 +1,8 @@
-import Card from "../../common/components/Card";
+import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
+import { firebaseAuth } from "../../api/firebase-setup";
 import PageHeader from "../../common/components/PageHeader";
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+
 import {
   MDBCol,
   MDBContainer,
@@ -20,6 +22,55 @@ import {
 
 
 export default function Professor() {
+
+  const [user] = useAuthState(firebaseAuth);  
+
+   const [inputValues, setInputValues] = useState({
+    uniqueField: user?.email,
+    input1: '',
+    input2: '',
+    input3: '',
+    name: user?.displayName,
+  });
+
+   useEffect(() => {
+    const email = user?.email;
+
+    if(!email){
+      return;
+    }
+
+    if(localStorage.getItem(email) === null){
+      return;
+    }
+    setInputValues(s => ({
+      ...s, 
+      input1:JSON.parse(localStorage.getItem(email)||"")[0],
+      input2:JSON.parse(localStorage.getItem(email)||"")[1],
+      input3:JSON.parse(localStorage.getItem(email)||"")[2],
+    }))
+  
+  }, [user])
+
+  const handleChange = (event:any, inputName:any) => {
+    setInputValues({
+      ...inputValues,
+      [inputName]: event.target.value,
+    });
+  };
+
+ const handleSave = () => {
+    const storedValues = localStorage.getItem(inputValues.uniqueField||"");
+
+    const newArray = [inputValues.input1, inputValues.input2, inputValues.input3];
+
+    if (storedValues) {
+      localStorage.setItem(inputValues.uniqueField||"", JSON.stringify(newArray));
+    } else {
+      localStorage.setItem(inputValues.uniqueField||"", JSON.stringify(newArray));
+    }
+  };
+
   return (
     <>
       <PageHeader title="Professor" />
@@ -81,7 +132,7 @@ export default function Professor() {
                     <MDBCardText>Full Name</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">Johnatan Smith</MDBCardText>
+                    <MDBCardText className="text-muted">{user?.displayName}</MDBCardText>
                   </MDBCol>
                 </MDBRow>
                 <hr />
@@ -90,25 +141,29 @@ export default function Professor() {
                     <MDBCardText>Email</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">example@example.com</MDBCardText>
+                    <MDBCardText className="text-muted">{user?.email}</MDBCardText>
                   </MDBCol>
                 </MDBRow>
                 <hr />
                 <MDBRow>
                   <MDBCol sm="3">
-                    <MDBCardText>Phone</MDBCardText>
+                    <MDBCardText>Title</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">(097) 234-5678</MDBCardText>
+                    <MDBCardText className="text-muted"> <input value={inputValues.input1}
+                       onChange={(e) => handleChange(e, 'input1')} 
+                       type="text" /></MDBCardText>
                   </MDBCol>
                 </MDBRow>
                 <hr />
                 <MDBRow>
                   <MDBCol sm="3">
-                    <MDBCardText>Mobile</MDBCardText>
+                    <MDBCardText>University</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">(098) 765-4321</MDBCardText>
+                    <MDBCardText className="text-muted"> <input value={inputValues.input2}
+                       onChange={(e) => handleChange(e, 'input2')} 
+                       type="text" /></MDBCardText>
                   </MDBCol>
                 </MDBRow>
                 <hr />
@@ -117,7 +172,9 @@ export default function Professor() {
                     <MDBCardText>Address</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">Bay Area, San Francisco, CA</MDBCardText>
+                    <MDBCardText className="text-muted"> <input value={inputValues.input3}
+                       onChange={(e) => handleChange(e, 'input3')} 
+                       type="text" /></MDBCardText>
                   </MDBCol>
                 </MDBRow>
               </MDBCardBody>

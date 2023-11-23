@@ -1,0 +1,23 @@
+.btn-up-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-up {
+  margin-right: 10px;
+}
+
+input {
+  border: none;
+  outline: none;
+  user-select: none;
+  border-bottom: 2px solid gray;
+  transition: border-bottom 0.3s;
+  padding: 0 !important;
+}
+
+input:focus {
+  border-bottom: 2px solid blue;
+  /* Border at the bottom when focused */
+}
