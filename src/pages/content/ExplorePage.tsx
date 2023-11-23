@@ -72,7 +72,6 @@ const professors: Professor[] = [
 
     title: "Assistant Professor",
     tags: [
-      "script",
       "recognition",
       "intelligent systems",
       "ML",
