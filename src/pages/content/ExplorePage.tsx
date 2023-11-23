@@ -2,6 +2,7 @@ import { useState } from "react";
 import Card from "../../common/components/Card";
 import PageHeader from "../../common/components/PageHeader";
 import SelectField from "../../common/components/fields/SelectField";
+import { XCircleIcon } from "@heroicons/react/24/outline";
 
 interface Professor {
   name: string;
@@ -211,11 +212,14 @@ export default function ExplorePage() {
               {filterGoals.map((i) => (
                 <span
                   key={i}
-                  className={`inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset ${goalColors[
+                  className={`inline-flex cursor-pointer items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset ${goalColors[
                     i
                   ].join(" ")}`}
+                  onClick={() => {
+                    setFilterGoals(filterGoals.filter((g) => g !== i));
+                  }}
                 >
-                  {goals[i]}
+                  {goals[i]} <XCircleIcon className="ml-1 h-4 w-4" />
                 </span>
               ))}
             </div>
