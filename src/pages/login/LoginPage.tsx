@@ -4,18 +4,13 @@ import logo from "../../assets/images/logo.svg";
 import googleLogo from "../../assets/images/google-logo.svg";
 import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 import { firebaseAuth } from "../../api/firebase-setup";
-import { useLocation, useNavigate } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 
 const LoginPage: React.FC<{ isSignup?: boolean }> = ({ isSignup = false }) => {
   const [signInWithGoogle, user, googleLoading, googleError] =
     useSignInWithGoogle(firebaseAuth);
 
   const navigate = useNavigate();
-  const location = useLocation();
-
-  const from = location.state?.from?.pathname || "/";
-  const onLoggedIn = () => navigate(from, { replace: true });
 
   return (
     <>
@@ -23,7 +18,6 @@ const LoginPage: React.FC<{ isSignup?: boolean }> = ({ isSignup = false }) => {
         <img className="mx-auto h-8 w-auto" src={logo} alt="" />
 
         <div className="flex mt-8 gap-4 sm:mx-auto sm:w-full sm:max-w-md">
-
           {/* Teachers */}
           <div className="bg-white  py-8 px-4 shadow sm:rounded-lg sm:px-10">
             <h2 className="mb-6 text-center text-2xl font-medium tracking-tighter text-gray-700">
@@ -37,11 +31,16 @@ const LoginPage: React.FC<{ isSignup?: boolean }> = ({ isSignup = false }) => {
             <SocialButton
               icon={googleLogo}
               label="Continue with Google"
-              onClick={() => signInWithGoogle().then(onLoggedIn)}
+              onClick={() =>
+                signInWithGoogle().then(() => {
+                  localStorage.setItem("role", "professor");
+                  navigate("/professor", { replace: true });
+                })
+              }
             />
           </div>
 
-          {/* Student */}    
+          {/* Student */}
           <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
             <h2 className="mb-6 text-center text-2xl font-medium tracking-tighter text-gray-700">
               {isSignup ? "Create a new account" : "Sign in to your account"}
@@ -54,7 +53,12 @@ const LoginPage: React.FC<{ isSignup?: boolean }> = ({ isSignup = false }) => {
             <SocialButton
               icon={googleLogo}
               label="Continue with Google"
-              onClick={() => signInWithGoogle().then(onLoggedIn)}
+              onClick={() =>
+                signInWithGoogle().then(() => {
+                  localStorage.setItem("role", "student");
+                  navigate("/student", { replace: true });
+                })
+              }
             />
           </div>
         </div>
@@ -62,7 +66,6 @@ const LoginPage: React.FC<{ isSignup?: boolean }> = ({ isSignup = false }) => {
     </>
   );
 };
-
 
 const SocialButton: React.FC<{
   icon: string;
