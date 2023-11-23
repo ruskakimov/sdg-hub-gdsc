@@ -10,7 +10,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import LoginPage from "./pages/login/LoginPage";
-import ContentPage from "./pages/content/ContentPage";
+import ContentPage from "./pages/content/ExplorePage";
 import Professor from "./pages/professor/Professor";
 import Student from "./pages/student/Student";
 

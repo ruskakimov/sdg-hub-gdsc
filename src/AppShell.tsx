@@ -9,8 +9,7 @@ import classNames from "classnames";
 import logo from "./assets/images/logo.svg";
 import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
 import { firebaseAuth } from "./api/firebase-setup";
-import { NavLink, Outlet, useOutletContext } from "react-router-dom";
-import useResume from "./api/useResume";
+import { NavLink, Outlet } from "react-router-dom";
 
 interface NavItem {
   name: string;
@@ -20,7 +19,6 @@ interface NavItem {
 
 export default function AppShell() {
   const [user] = useAuthState(firebaseAuth);
-  const resumeContext = useResume(user ?? null);
 
   const role = localStorage.getItem("role");
 
@@ -168,13 +166,9 @@ export default function AppShell() {
 
       <div className="py-10 overflow-y-scroll flex-1">
         <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-          <Outlet context={resumeContext} />
+          <Outlet />
         </div>
       </div>
     </div>
   );
-}
-
-export function useContextResume() {
-  return useOutletContext<ReturnType<typeof useResume>>();
 }
