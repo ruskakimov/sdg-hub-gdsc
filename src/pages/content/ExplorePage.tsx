@@ -100,11 +100,13 @@ export default function ExplorePage() {
       <div className="space-y-6">
         <Card>
           <div className="flex gap-4">
-            <TextField
-              label="Search By Name"
-              value={searchText}
-              onChange={(e) => setSearchText(e.target.value)}
-            />
+            <div className="flex-grow">
+              <TextField
+                label="Search"
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
+              />
+            </div>
 
             <SelectField
               label="SDG Goals"
