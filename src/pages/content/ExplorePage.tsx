@@ -63,12 +63,11 @@ const goalColors: string[][] = [
 
 const professors: Professor[] = [
   {
-    name: "Saad Bin Ahmed",
-    email: "saad.ahmed@lakehead.ca",
+    name: "Mohammad Ahmed",
+    email: "m.ahmed@lakehead.ca",
     imageUrl:
-      "https://scholar.googleusercontent.com/citations?view_op=medium_photo&user=6QZM-vIAAAAJ&citpid=3",
-    websiteUrl:
-      "https://scholar.google.ca/citations?user=6QZM-vIAAAAJ&hl=en&oi=ao",
+      "https://scholar.google.ca/citations/images/avatar_scholar_128.png",
+    websiteUrl: "",
     university: "Lakehead",
 
     title: "Assistant Professor",
