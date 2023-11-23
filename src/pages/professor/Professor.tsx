@@ -78,7 +78,6 @@ export const data = {
 
 export default function Professor() {
 
-  const [tagArray, setTagArray] = useState(["Computer Science","Machine Learning", "AI", "Pattern Recognition","Neural Networks"])
   const [user] = useAuthState(firebaseAuth);  
 
    const [inputValues, setInputValues] = useState({
@@ -161,8 +160,8 @@ export default function Professor() {
                 <p className="text-muted mt-3 mb-3">Asst. Professor, Computer Science</p>
                 <div className="d-flex justify-content-center mb-2">
                     <div style={{display:'flex', justifyContent:"center", alignItems:"center"}}>
-                  <MDBBtn>Follow</MDBBtn>
-                  <MDBSwitch style={{marginLeft:"0px"}} id='flexSwitchCheckDefault' label='Looking for students' />
+                  <MDBBtn>Add Paper</MDBBtn>
+                  <MDBSwitch style={{marginLeft:"0px"}} id='flexSwitchCheckDefault' label='Invite Students' />
                   </div>
                 </div>
               </MDBCardBody>
@@ -268,20 +267,11 @@ export default function Professor() {
             </MDBCard>
             <MDBRow>
               <MDBCol md="9">
-              <MDBCard>
+                <MDBCard className="mb-4 mb-md-0">
                   <MDBCardBody>
                   <Bar options={options} data={data} />
                   </MDBCardBody>
-              </MDBCard>
-              </MDBCol>
-              <MDBCol md="3">
-                <div style={{display:"flex", flexDirection:"column", alignItems:"space-between", height:"400px", gap:"5px", overflow:"hidden"}}>
-                {tagArray.map((ele)=><MDBCard>
-                  <MDBCardBody className="my-0 py-3 hover:border border-slate-400">
-                    {ele}
-                  </MDBCardBody>
-              </MDBCard>)}
-              </div>
+                </MDBCard>
               </MDBCol>
             </MDBRow>
           </MDBCol>

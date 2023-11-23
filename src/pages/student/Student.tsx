@@ -108,8 +108,7 @@ export default function Student() {
                 <p className="text-muted mt-3 mb-3">Full Stack Developer</p>
                 <div className="d-flex justify-content-center mb-2">
                     <div style={{display:'flex', justifyContent:"center", alignItems:"center"}}>
-                  <MDBBtn>Follow</MDBBtn>
-                  <MDBSwitch style={{marginLeft:"0px"}} id='flexSwitchCheckDefault' label='Looking for students' />
+                   <MDBSwitch style={{marginLeft:"0"}} id='flexSwitchCheckDefault' label='Notifications' />
                   </div>
                 </div>
               </MDBCardBody>
