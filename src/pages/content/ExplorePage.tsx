@@ -1,5 +1,7 @@
+import { useState } from "react";
 import Card from "../../common/components/Card";
 import PageHeader from "../../common/components/PageHeader";
+import SelectField from "../../common/components/fields/SelectField";
 
 interface Professor {
   name: string;
@@ -178,12 +180,47 @@ const professors: Professor[] = [
 ];
 
 export default function ExplorePage() {
+  const [filterGoals, setFilterGoals] = useState<number[]>([]);
+
   return (
     <>
       <PageHeader title="Explore" />
 
       <div className="space-y-6">
         <Card>
+          <div>
+            <SelectField
+              label="SDG Goals"
+              options={goals.map((g, i) => ({
+                label: i + 1 + ". " + g,
+                value: i + "",
+              }))}
+              onChange={(e) => {
+                const val = +e.target.value;
+                if (filterGoals.includes(val)) {
+                  setFilterGoals(filterGoals.filter((g) => g !== val));
+                } else {
+                  setFilterGoals([...filterGoals, val]);
+                }
+              }}
+            />
+          </div>
+
+          <div>
+            <div className="flex flex-wrap gap-2">
+              {filterGoals.map((i) => (
+                <span
+                  key={i}
+                  className={`inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset ${goalColors[
+                    i
+                  ].join(" ")}`}
+                >
+                  {goals[i]}
+                </span>
+              ))}
+            </div>
+          </div>
+
           <table className="min-w-full divide-y divide-gray-300">
             <thead>
               <tr>
