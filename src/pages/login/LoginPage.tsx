@@ -1,6 +1,5 @@
 import SecondaryButton from "../../common/components/SecondaryButton";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import googleLogo from "../../assets/images/google-logo.svg";
 import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 import { firebaseAuth } from "../../api/firebase-setup";
