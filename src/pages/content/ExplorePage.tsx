@@ -139,35 +139,41 @@ export default function ExplorePage() {
           </div>
 
           <div>
-            <div className="flex flex-wrap gap-2">
-              {filterGoals.map((i) => (
-                <span
-                  key={i}
-                  className={`inline-flex cursor-pointer items-center rounded-full px-2 py-1 text-xs font-medium ring-1 ring-inset ${goalColors[
-                    i
-                  ].join(" ")}`}
-                  onClick={() => {
-                    setFilterGoals(filterGoals.filter((g) => g !== i));
-                  }}
-                >
-                  {goals[i]} <XCircleIcon className="ml-1 h-4 w-4" />
-                </span>
-              ))}
-            </div>
+            {filterGoals.length > 0 && (
+              <div className="flex flex-wrap gap-2 mb-2">
+                <span className="text-sm">Goals:</span>
+                {filterGoals.map((i) => (
+                  <span
+                    key={i}
+                    className={`inline-flex cursor-pointer items-center rounded-full px-2 py-1 text-xs font-medium ring-1 ring-inset ${goalColors[
+                      i
+                    ].join(" ")}`}
+                    onClick={() => {
+                      setFilterGoals(filterGoals.filter((g) => g !== i));
+                    }}
+                  >
+                    {goals[i]} <XCircleIcon className="ml-1 h-4 w-4" />
+                  </span>
+                ))}
+              </div>
+            )}
 
-            <div className="flex flex-wrap gap-2">
-              {filterTags.map((tag) => (
-                <span
-                  key={tag}
-                  className={`cursor-pointer inline-flex items-center rounded-full bg-stone-50 px-2 py-1 text-xs font-medium text-stone-700 ring-1 ring-inset ring-stone-600/20`}
-                  onClick={() => {
-                    setFilterTags(filterTags.filter((t) => t !== tag));
-                  }}
-                >
-                  {tag} <XCircleIcon className="ml-1 h-4 w-4" />
-                </span>
-              ))}
-            </div>
+            {filterTags.length > 0 && (
+              <div className="flex flex-wrap gap-2">
+                <span className="text-sm">Areas:</span>
+                {filterTags.map((tag) => (
+                  <span
+                    key={tag}
+                    className={`cursor-pointer inline-flex items-center rounded-full bg-stone-50 px-2 py-1 text-xs font-medium text-stone-700 ring-1 ring-inset ring-stone-600/20`}
+                    onClick={() => {
+                      setFilterTags(filterTags.filter((t) => t !== tag));
+                    }}
+                  >
+                    {tag} <XCircleIcon className="ml-1 h-4 w-4" />
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
 
           <table className="min-w-full divide-y divide-gray-300">
