@@ -6,7 +6,6 @@ import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 import { firebaseAuth } from "../../api/firebase-setup";
 import { useLocation, useNavigate } from "react-router-dom";
 
-// TODO: Finish project dsdsd 
 
 const LoginPage: React.FC<{ isSignup?: boolean }> = ({ isSignup = false }) => {
   const [signInWithGoogle, user, googleLoading, googleError] =
@@ -20,10 +19,29 @@ const LoginPage: React.FC<{ isSignup?: boolean }> = ({ isSignup = false }) => {
 
   return (
     <>
-      <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
+      <div className="flex min-h-full flex-col justify-items-center py-12 sm:px-6 lg:px-8">
         <img className="mx-auto h-8 w-auto" src={logo} alt="" />
 
-        <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="flex mt-8 gap-4 sm:mx-auto sm:w-full sm:max-w-md">
+
+          {/* Teachers */}
+          <div className="bg-white  py-8 px-4 shadow sm:rounded-lg sm:px-10">
+            <h2 className="mb-6 text-center text-2xl font-medium tracking-tighter text-gray-700">
+              {isSignup ? "Create a new account" : "Sign in to your account"}
+            </h2>
+
+            {googleError && (
+              <p className="mb-4 text-sm text-red-700">{googleError.message}</p>
+            )}
+
+            <SocialButton
+              icon={googleLogo}
+              label="Continue with Google"
+              onClick={() => signInWithGoogle().then(onLoggedIn)}
+            />
+          </div>
+
+          {/* Student */}    
           <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
             <h2 className="mb-6 text-center text-2xl font-medium tracking-tighter text-gray-700">
               {isSignup ? "Create a new account" : "Sign in to your account"}
