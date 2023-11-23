@@ -1,12 +1,12 @@
 import SecondaryButton from "../../common/components/SecondaryButton";
-import LoginForm from "./LoginForm";
-import SignupForm from "./SignupForm";
 
 import logo from "../../assets/images/logo.svg";
 import googleLogo from "../../assets/images/google-logo.svg";
 import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 import { firebaseAuth } from "../../api/firebase-setup";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+
+// TODO: Finish project dsdsd 
 
 const LoginPage: React.FC<{ isSignup?: boolean }> = ({ isSignup = false }) => {
   const [signInWithGoogle, user, googleLoading, googleError] =
@@ -25,7 +25,7 @@ const LoginPage: React.FC<{ isSignup?: boolean }> = ({ isSignup = false }) => {
 
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-            <h2 className="mb-8 text-center text-2xl font-medium tracking-tighter text-gray-700">
+            <h2 className="mb-6 text-center text-2xl font-medium tracking-tighter text-gray-700">
               {isSignup ? "Create a new account" : "Sign in to your account"}
             </h2>
 
@@ -38,26 +38,6 @@ const LoginPage: React.FC<{ isSignup?: boolean }> = ({ isSignup = false }) => {
               label="Continue with Google"
               onClick={() => signInWithGoogle().then(onLoggedIn)}
             />
-
-            <OrSeparator />
-
-            {isSignup ? (
-              <SignupForm onSuccess={onLoggedIn} />
-            ) : (
-              <LoginForm onSuccess={onLoggedIn} />
-            )}
-
-            <div className="mt-4 text-center">
-              {isSignup ? (
-                <Link to="/sign-in" className="text-sm text-gray-600 underline">
-                  Have an account? Sign in
-                </Link>
-              ) : (
-                <Link to="/sign-up" className="text-sm text-gray-600 underline">
-                  Don't have an account? Sign up
-                </Link>
-              )}
-            </div>
           </div>
         </div>
       </div>
@@ -65,18 +45,6 @@ const LoginPage: React.FC<{ isSignup?: boolean }> = ({ isSignup = false }) => {
   );
 };
 
-const OrSeparator: React.FC = () => {
-  return (
-    <div className="my-6 relative">
-      <div className="absolute inset-0 flex items-center">
-        <div className="w-full border-t border-gray-300" />
-      </div>
-      <div className="relative flex justify-center text-sm">
-        <span className="bg-white px-2 text-gray-500">OR</span>
-      </div>
-    </div>
-  );
-};
 
 const SocialButton: React.FC<{
   icon: string;
