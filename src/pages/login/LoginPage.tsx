@@ -6,6 +6,8 @@ import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 import { firebaseAuth } from "../../api/firebase-setup";
 import { useLocation, useNavigate } from "react-router-dom";
 
+// TODO: Finish project
+
 const LoginPage: React.FC<{ isSignup?: boolean }> = ({ isSignup = false }) => {
   const [signInWithGoogle, user, googleLoading, googleError] =
     useSignInWithGoogle(firebaseAuth);
