@@ -3,6 +3,9 @@ import Card from "../../common/components/Card";
 import PageHeader from "../../common/components/PageHeader";
 import SelectField from "../../common/components/fields/SelectField";
 import { XCircleIcon } from "@heroicons/react/24/outline";
+import { ref, getDatabase } from "firebase/database";
+import { useList } from "react-firebase-hooks/database";
+import { firebaseApp } from "../../api/firebase-setup";
 
 interface Professor {
   name: string;
@@ -64,122 +67,6 @@ const goalColors: string[][] = [
   ["bg-violet-50", "ring-violet-600/20", "text-violet-800"],
 ];
 
-const professors: Professor[] = [
-  {
-    name: "Mohammad Ahmed",
-    email: "m.ahmed@lakehead.ca",
-    imageUrl:
-      "https://scholar.google.ca/citations/images/avatar_scholar_128.png",
-    websiteUrl: "",
-    university: "Lakehead",
-
-    title: "Assistant Professor",
-    tags: [
-      "recognition",
-      "intelligent systems",
-      "ML",
-      "neural networks",
-      "deep learning",
-    ],
-    goals: [4, 9],
-  },
-  {
-    name: "Zheng Wang",
-    email: "zheng.wang@lakehead.ca",
-    imageUrl:
-      "https://scholar.google.ca/citations/images/avatar_scholar_128.png",
-    websiteUrl: "",
-    university: "Lakehead",
-    title: "Professor",
-    tags: [
-      "boson",
-      "particle-flow",
-      "dark matter",
-      "energy",
-      "neutrino physics",
-    ],
-    goals: [4, 7, 9],
-  },
-  {
-    name: "Michel Bédard",
-    email: "michel@lakehead.ca",
-    imageUrl:
-      "https://scholar.googleusercontent.com/citations?view_op=medium_photo&user=MD3G5iMAAAAJ&citpid=3",
-    websiteUrl: "",
-    university: "Lakehead",
-    title: "Professor",
-    tags: ["care-giving", "driving", "mental health", "aging"],
-    goals: [3, 10, 17],
-  },
-
-  {
-    name: "John Doe",
-    email: "john.doe@lakehead.ca",
-    imageUrl:
-      "https://scholar.google.ca/citations/images/avatar_scholar_128.png",
-    websiteUrl: "",
-    university: "Lakehead",
-    title: "Associate Professor",
-    tags: ["data science", "machine learning", "statistics"],
-    goals: [5, 8, 14],
-  },
-  {
-    name: "Jane Smith",
-    email: "jane.smith@lakehead.ca",
-    imageUrl:
-      "https://scholar.google.ca/citations/images/avatar_scholar_128.png",
-    websiteUrl: "",
-    university: "Lakehead",
-    title: "Professor",
-    tags: ["environmental science", "climate change", "sustainability"],
-    goals: [2, 11, 15],
-  },
-  {
-    name: "Bob Johnson",
-    email: "bob.johnson@lakehead.ca",
-    imageUrl:
-      "https://scholar.google.ca/citations/images/avatar_scholar_128.png",
-    websiteUrl: "",
-    university: "Lakehead",
-    title: "Assistant Professor",
-    tags: ["software engineering", "web development", "algorithms"],
-    goals: [1, 6, 13],
-  },
-  {
-    name: "Alice Williams",
-    email: "alice.williams@lakehead.ca",
-    imageUrl:
-      "https://scholar.google.ca/citations/images/avatar_scholar_128.png",
-    websiteUrl: "",
-    university: "Lakehead",
-    title: "Professor",
-    tags: ["biochemistry", "molecular biology", "genetics"],
-    goals: [12, 16],
-  },
-  {
-    name: "Ethan Carter",
-    email: "ethan.carter@lakehead.ca",
-    imageUrl:
-      "https://scholar.google.ca/citations/images/avatar_scholar_128.png",
-    websiteUrl: "",
-    university: "Lakehead",
-    title: "Associate Professor",
-    tags: ["robotics", "artificial intelligence", "control systems"],
-    goals: [7, 9, 15],
-  },
-  {
-    name: "Olivia Davis",
-    email: "olivia.davis@lakehead.ca",
-    imageUrl:
-      "https://scholar.google.ca/citations/images/avatar_scholar_128.png",
-    websiteUrl: "",
-    university: "Lakehead",
-    title: "Professor",
-    tags: ["public health", "epidemiology", "health policy"],
-    goals: [3, 10, 14],
-  },
-];
-
 function extractTags(professors: Professor[]): string[] {
   const set = new Set<string>();
   for (let p of professors) {
@@ -190,9 +77,13 @@ function extractTags(professors: Professor[]): string[] {
   return Array.from(set);
 }
 
+const database = getDatabase(firebaseApp);
+
 export default function ExplorePage() {
   const [filterGoals, setFilterGoals] = useState<number[]>([]);
+  const [snapshots, loading, error] = useList(ref(database, "professors"));
 
+  const professors: Professor[] = snapshots?.map((s) => s.val()) || [];
   const tags = extractTags(professors);
 
   return (
