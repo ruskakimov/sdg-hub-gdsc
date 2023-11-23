@@ -6,6 +6,7 @@ import { XCircleIcon } from "@heroicons/react/24/outline";
 import { ref, getDatabase } from "firebase/database";
 import { useList } from "react-firebase-hooks/database";
 import { firebaseApp } from "../../api/firebase-setup";
+import TextField from "../../common/components/fields/TextField";
 import useConfirmationDialog from "../../common/hooks/useConfirmationDialog";
 
 interface Professor {
@@ -81,14 +82,17 @@ function extractTags(professors: Professor[]): string[] {
 const database = getDatabase(firebaseApp);
 
 export default function ExplorePage() {
-  const [filterGoals, setFilterGoals] = useState<number[]>([]);
   const [snapshots, loading, error] = useList(ref(database, "professors"));
 
   const professors: Professor[] = snapshots?.map((s) => s.val()) || [];
   console.log(professors)
   console.log(snapshots?.map((s) => s.val()))
   const tags = extractTags(professors);
-  
+
+  const [searchText, setSearchText] = useState<string>("");
+  const [filterGoals, setFilterGoals] = useState<number[]>([]);
+  const [filterTags, setFilterTags] = useState<string[]>([]);
+
   const [openConfirmationDialog, confirmationDialog] = useConfirmationDialog();
 
   return (
@@ -98,6 +102,14 @@ export default function ExplorePage() {
       <div className="space-y-6">
         <Card>
           <div className="flex gap-4">
+            <div className="flex-grow">
+              <TextField
+                label="Search"
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
+              />
+            </div>
+
             <SelectField
               label="SDG Goals"
               value={"*"}
@@ -120,43 +132,63 @@ export default function ExplorePage() {
             />
 
             <SelectField
-              label="SDG Goals"
+              label="Research Areas"
               value={"*"}
-              placeholder="Goals"
+              placeholder="Research Areas"
               options={[
-                { label: "Select goal", value: "*" },
-                ...goals.map((g, i) => ({
-                  label: i + 1 + ". " + g,
-                  value: i + "",
+                { label: "Select area", value: "*" },
+                ...tags.map((g, i) => ({
+                  label: g,
+                  value: g,
                 })),
               ]}
               onChange={(e) => {
-                const val = +e.target.value;
-                if (filterGoals.includes(val)) {
-                  setFilterGoals(filterGoals.filter((g) => g !== val));
+                const val = e.target.value;
+                if (filterTags.includes(val)) {
+                  setFilterTags(filterTags.filter((g) => g !== val));
                 } else {
-                  setFilterGoals([...filterGoals, val]);
+                  setFilterTags([...filterTags, val]);
                 }
               }}
             />
           </div>
 
           <div>
-            <div className="flex flex-wrap gap-2">
-              {filterGoals.map((i) => (
-                <span
-                  key={i}
-                  className={`inline-flex cursor-pointer items-center rounded-full px-2 py-1 text-xs font-medium ring-1 ring-inset ${goalColors[
-                    i
-                  ].join(" ")}`}
-                  onClick={() => {
-                    setFilterGoals(filterGoals.filter((g) => g !== i));
-                  }}
-                >
-                  {goals[i]} <XCircleIcon className="ml-1 h-4 w-4" />
-                </span>
-              ))}
-            </div>
+            {filterGoals.length > 0 && (
+              <div className="flex flex-wrap gap-2 mb-2">
+                <span className="text-sm leading-6">Goals:</span>
+                {filterGoals.map((i) => (
+                  <span
+                    key={i}
+                    className={`inline-flex cursor-pointer items-center rounded-full px-2 py-1 text-xs font-medium ring-1 ring-inset ${goalColors[
+                      i
+                    ].join(" ")}`}
+                    onClick={() => {
+                      setFilterGoals(filterGoals.filter((g) => g !== i));
+                    }}
+                  >
+                    {goals[i]} <XCircleIcon className="ml-1 h-4 w-4" />
+                  </span>
+                ))}
+              </div>
+            )}
+
+            {filterTags.length > 0 && (
+              <div className="flex flex-wrap gap-2">
+                <span className="text-sm leading-6">Areas:</span>
+                {filterTags.map((tag) => (
+                  <span
+                    key={tag}
+                    className={`cursor-pointer inline-flex items-center rounded-full bg-stone-50 px-2 py-1 text-xs font-medium text-stone-700 ring-1 ring-inset ring-stone-600/20`}
+                    onClick={() => {
+                      setFilterTags(filterTags.filter((t) => t !== tag));
+                    }}
+                  >
+                    {tag} <XCircleIcon className="ml-1 h-4 w-4" />
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
 
           <table className="min-w-full divide-y divide-gray-300">
@@ -197,11 +229,25 @@ export default function ExplorePage() {
             <tbody className="divide-y divide-gray-200 bg-white">
               {professors
                 .filter((p) => {
-                  if (filterGoals.length === 0) return true;
-                  return filterGoals.some((g) => p.goals.includes(g + 1));
+                  const includedGoals =
+                    filterGoals.length > 0
+                      ? filterGoals
+                      : goals.map((g, i) => i);
+
+                  const includedTags =
+                    filterTags.length > 0 ? filterTags : tags;
+
+                  return (
+                    (searchText.trim() === "" ||
+                      p.name
+                        .toLowerCase()
+                        .includes(searchText.toLowerCase())) &&
+                    includedGoals.some((g) => p.goals.includes(g + 1)) &&
+                    includedTags.some((t) => p.tags.includes(t))
+                  );
                 })
-                .map((professor) => (
-                  <tr key={professor.email}>
+                .map((professor, i) => (
+                  <tr key={i}>
                     <td className="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
                       <div className="flex items-center">
                         <div className="h-11 w-11 flex-shrink-0">
@@ -277,7 +323,7 @@ export default function ExplorePage() {
                 ))}
             </tbody>
           </table>
-        </Card> 
+        </Card>
       </div>
     </>
   );
