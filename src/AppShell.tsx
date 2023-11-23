@@ -19,6 +19,7 @@ interface NavItem {
 
 export default function AppShell() {
   const [user] = useAuthState(firebaseAuth);
+  console.log(user)
 
   const role = localStorage.getItem("role");
 

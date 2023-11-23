@@ -1,6 +1,7 @@
-import Card from "../../common/components/Card";
 import PageHeader from "../../common/components/PageHeader";
-import React from 'react';
+import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
+import { firebaseAuth } from "../../api/firebase-setup";
+import "./Student.css"
 import {
   MDBCol,
   MDBContainer,
@@ -20,6 +21,10 @@ import {
 
 
 export default function Student() {
+  const [user] = useAuthState(firebaseAuth);
+  console.log(user)
+
+  const [signOut] = useSignOut(firebaseAuth);
   return (
     <>
       <PageHeader title="Student" />
@@ -81,7 +86,7 @@ export default function Student() {
                     <MDBCardText>Full Name</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">Johnatan Smith</MDBCardText>
+                    <MDBCardText className="text-muted">{user?.displayName}</MDBCardText>
                   </MDBCol>
                 </MDBRow>
                 <hr />
@@ -90,7 +95,7 @@ export default function Student() {
                     <MDBCardText>Email</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">example@example.com</MDBCardText>
+                    <MDBCardText className="text-muted">{user?.email}</MDBCardText>
                   </MDBCol>
                 </MDBRow>
                 <hr />
@@ -99,7 +104,7 @@ export default function Student() {
                     <MDBCardText>Phone</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">(097) 234-5678</MDBCardText>
+                    <MDBCardText className="text-muted">8073581508</MDBCardText>
                   </MDBCol>
                 </MDBRow>
                 <hr />

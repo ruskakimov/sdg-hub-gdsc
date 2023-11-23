@@ -5,6 +5,7 @@ import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 import { firebaseAuth } from "../../api/firebase-setup";
 import { useNavigate } from "react-router-dom";
 import "./LoginPage.css"
+import logo from "../../assets/images/logo.svg";
 
 
 const LoginPage: React.FC<{ isSignup?: boolean }> = ({ isSignup = false }) => {
@@ -13,19 +14,20 @@ const LoginPage: React.FC<{ isSignup?: boolean }> = ({ isSignup = false }) => {
 
   const navigate = useNavigate();
 
-  console.log(user)
-
   return (
 
       <div className="outerDiv">
-
-        <p className="heading">Sgd_Hub</p>
+        <img
+                      className="hidden h-16 w-auto lg:block"
+                      src={logo}
+                      alt=""
+                    />
 
         <div className="innerDiv">
 
           {/* Teachers */}
           <div className="bg-stone-800 py-8 px-4 shadow sm:px-10 teachers">
-            <h2 className="mb-6 text-center text-2xl font-medium tracking-tighter text-gray-200">
+            <h2 className="mb-4 text-center text-2xl font-medium tracking-tighter text-gray-200">
               {"Professors"}
             </h2>
 
@@ -48,7 +50,7 @@ const LoginPage: React.FC<{ isSignup?: boolean }> = ({ isSignup = false }) => {
 
           {/* Student */}    
           <div className="bg-stone-800 py-8 px-4 shadow sm:px-10 student">
-            <h2 className="mb-6 text-center text-2xl font-medium tracking-tighter text-gray-200">
+            <h2 className="mb-4 text-center text-2xl font-medium tracking-tighter text-gray-200">
               {"Students"}
             </h2>
 
