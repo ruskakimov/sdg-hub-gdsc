@@ -141,7 +141,7 @@ export default function ExplorePage() {
           <div>
             {filterGoals.length > 0 && (
               <div className="flex flex-wrap gap-2 mb-2">
-                <span className="text-sm">Goals:</span>
+                <span className="text-sm leading-6">Goals:</span>
                 {filterGoals.map((i) => (
                   <span
                     key={i}
@@ -160,7 +160,7 @@ export default function ExplorePage() {
 
             {filterTags.length > 0 && (
               <div className="flex flex-wrap gap-2">
-                <span className="text-sm">Areas:</span>
+                <span className="text-sm leading-6">Areas:</span>
                 {filterTags.map((tag) => (
                   <span
                     key={tag}
