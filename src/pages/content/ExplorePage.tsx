@@ -212,7 +212,7 @@ export default function ExplorePage() {
               {filterGoals.map((i) => (
                 <span
                   key={i}
-                  className={`inline-flex cursor-pointer items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset ${goalColors[
+                  className={`inline-flex cursor-pointer items-center rounded-full px-2 py-1 text-xs font-medium ring-1 ring-inset ${goalColors[
                     i
                   ].join(" ")}`}
                   onClick={() => {
