@@ -242,8 +242,8 @@ export default function ExplorePage() {
                     includedTags.some((t) => p.tags.includes(t))
                   );
                 })
-                .map((professor) => (
-                  <tr key={professor.email}>
+                .map((professor, i) => (
+                  <tr key={i}>
                     <td className="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
                       <div className="flex items-center">
                         <div className="h-11 w-11 flex-shrink-0">
