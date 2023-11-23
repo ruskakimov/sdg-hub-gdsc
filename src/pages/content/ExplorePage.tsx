@@ -80,11 +80,13 @@ function extractTags(professors: Professor[]): string[] {
 const database = getDatabase(firebaseApp);
 
 export default function ExplorePage() {
-  const [filterGoals, setFilterGoals] = useState<number[]>([]);
   const [snapshots, loading, error] = useList(ref(database, "professors"));
 
   const professors: Professor[] = snapshots?.map((s) => s.val()) || [];
   const tags = extractTags(professors);
+
+  const [filterGoals, setFilterGoals] = useState<number[]>([]);
+  const [filterTags, setFilterTags] = useState<string[]>([]);
 
   return (
     <>
@@ -115,22 +117,22 @@ export default function ExplorePage() {
             />
 
             <SelectField
-              label="SDG Goals"
+              label="Research Areas"
               value={"*"}
-              placeholder="Goals"
+              placeholder="Research Areas"
               options={[
-                { label: "Select goal", value: "*" },
-                ...goals.map((g, i) => ({
-                  label: i + 1 + ". " + g,
-                  value: i + "",
+                { label: "Select area", value: "*" },
+                ...tags.map((g, i) => ({
+                  label: g,
+                  value: g,
                 })),
               ]}
               onChange={(e) => {
-                const val = +e.target.value;
-                if (filterGoals.includes(val)) {
-                  setFilterGoals(filterGoals.filter((g) => g !== val));
+                const val = e.target.value;
+                if (filterTags.includes(val)) {
+                  setFilterTags(filterTags.filter((g) => g !== val));
                 } else {
-                  setFilterGoals([...filterGoals, val]);
+                  setFilterTags([...filterTags, val]);
                 }
               }}
             />
@@ -149,6 +151,20 @@ export default function ExplorePage() {
                   }}
                 >
                   {goals[i]} <XCircleIcon className="ml-1 h-4 w-4" />
+                </span>
+              ))}
+            </div>
+
+            <div className="flex flex-wrap gap-2">
+              {filterTags.map((tag) => (
+                <span
+                  key={tag}
+                  className={`cursor-pointer inline-flex items-center rounded-full bg-stone-50 px-2 py-1 text-xs font-medium text-stone-700 ring-1 ring-inset ring-stone-600/20`}
+                  onClick={() => {
+                    setFilterTags(filterTags.filter((t) => t !== tag));
+                  }}
+                >
+                  {tag} <XCircleIcon className="ml-1 h-4 w-4" />
                 </span>
               ))}
             </div>
