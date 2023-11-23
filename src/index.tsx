@@ -13,6 +13,7 @@ import LoginPage from "./pages/login/LoginPage";
 import ContentPage from "./pages/content/ExplorePage";
 import Professor from "./pages/professor/Professor";
 import Student from "./pages/student/Student";
+import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
